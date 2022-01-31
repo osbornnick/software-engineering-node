@@ -1,3 +1,8 @@
 .idea
 node_modules
+<<<<<<< HEAD
 build
+=======
+build
+out
+>>>>>>> f657fce2d1173d7ca60b64b7d4b95cd950a97885
