@@ -4,7 +4,7 @@ import TuitController from "./controllers/TuitController";
 import UserController from "./controllers/UserController";
 import TuitDao from "./daos/TuitDao";
 import UserDao from "./daos/UserDao";
-
+import cors from "cors";
 mongoose.connect(
     "mongodb+srv://admin:tKSu4A4ScgtEuCpF@cluster0.hejjh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 );
@@ -12,6 +12,7 @@ mongoose.connect(
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 
 app.get("/hello", (req: Request, res: Response) => res.send("Hello World!"));
 
