@@ -2,8 +2,6 @@ import express, { Request, Response } from "express";
 import mongoose from "mongoose";
 import TuitController from "./controllers/TuitController";
 import UserController from "./controllers/UserController";
-import TuitDao from "./daos/TuitDao";
-import UserDao from "./daos/UserDao";
 import cors from "cors";
 mongoose.connect(
     "mongodb+srv://admin:tKSu4A4ScgtEuCpF@cluster0.hejjh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
@@ -20,8 +18,8 @@ app.get("/add/:a/:b", (req: Request, res: Response) =>
     res.send(req.params.a + req.params.b)
 );
 
-const tuitController = new TuitController(app, new TuitDao(), new UserDao());
-const userController = new UserController(app, new UserDao());
+TuitController.getInstance(app);
+UserController.getInstance(app);
 
 const PORT = 4000;
 app.listen(process.env.PORT || PORT);
