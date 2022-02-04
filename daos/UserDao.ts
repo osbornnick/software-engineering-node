@@ -10,6 +10,7 @@ export default class UserDao implements UserDaoI {
         }
         return UserDao.userDao;
     };
+    private constructor() {}
     async findAllUsers(): Promise<User[]> {
         return await UserModel.find();
     }

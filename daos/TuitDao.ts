@@ -8,6 +8,8 @@ export default class TuitDao implements TuitDaoI {
         if (TuitDao.tuitDao === null) TuitDao.tuitDao = new TuitDao();
         return TuitDao.tuitDao;
     };
+
+    private constructor() {}
     async findAllTuits(): Promise<Tuit[]> {
         return await TuitModel.find();
     }
