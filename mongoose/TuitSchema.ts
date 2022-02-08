@@ -1,10 +1,10 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 import User from "./UserSchema";
 const TuitSchema = new mongoose.Schema(
     {
         tuit: { type: String, required: true },
         postedOn: Date,
-        postedBy: { type: User, required: true },
+        postedBy: { type: Schema.Types.ObjectId, required: true },
     },
     { collection: "tuits" }
 );
