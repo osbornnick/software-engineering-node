@@ -36,7 +36,7 @@ export default class TuitController implements TuitControllerI {
             .findTuitsByUser(req.params.uid)
             .then((tuits) => res.json(tuits));
 
-    createTuit = async (req: Request, res: Response) => {
+    createTuit = (req: Request, res: Response) => {
         const { uid } = req.body.postedBy;
         const newTuit = { ...req.body, postedBy: uid };
         TuitController.tuitDao
