@@ -1,18 +1,19 @@
 import { Request, Response, Express } from "express";
 import TuitDao from "../daos/TuitDao";
-import UserDao from "../daos/UserDao";
 import TuitControllerI from "../interfaces/TuitController";
 
 export default class TuitController implements TuitControllerI {
     private static tuitDao: TuitDao = TuitDao.getInstance();
-    private static userDao: UserDao = UserDao.getInstance();
     private static tuitController: TuitController | null = null;
     public static getInstance = (app: Express): TuitController => {
         if (TuitController.tuitController === null) {
             TuitController.tuitController = new TuitController();
             app.get("/tuits", TuitController.tuitController.findAllTuits);
             app.get("/tuits/:tid", TuitController.tuitController.findTuitById);
-            app.get("users/:uid/tuits", TuitController.tuitController.findTuitsByUser);
+            app.get(
+                "users/:uid/tuits",
+                TuitController.tuitController.findTuitsByUser
+            );
             app.post("/tuits", TuitController.tuitController.createTuit);
             app.delete("/tuits/:tid", TuitController.tuitController.deleteTuit);
             app.put("/tuits/:tid", TuitController.tuitController.updateTuit);
@@ -37,8 +38,7 @@ export default class TuitController implements TuitControllerI {
 
     createTuit = async (req: Request, res: Response) => {
         const { uid } = req.body.postedBy;
-        const user = await TuitController.userDao.findUserById(uid);
-        const newTuit = { ...req.body, postedBy: user };
+        const newTuit = { ...req.body, postedBy: uid };
         TuitController.tuitDao
             .createTuit(newTuit)
             .then((tuit) => res.json(tuit))
