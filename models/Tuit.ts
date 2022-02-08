@@ -1,7 +1,7 @@
-import User from "./User";
+import { Schema } from "mongoose";
 
 export default class Tuit {
     private tuit: string = "";
     private postedOn: Date = new Date();
-    private postedBy: User | null = null;
+    private postedBy: Schema.Types.ObjectId | null = null;
 }
