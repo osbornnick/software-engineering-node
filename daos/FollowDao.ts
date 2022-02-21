@@ -30,5 +30,7 @@ export default class FollowDao implements FollowDaoI {
         FollowModel.deleteMany({ userFollowing: uid });
 
     followsBack = async (uid: string, oid: string): Promise<any> =>
-        FollowModel.find({ userFollowing: oid, userFollowed: uid });
+        FollowModel.find({ userFollowing: oid, userFollowed: uid })
+            .populate("userFollowing", ["_id", "username", "email"])
+            .populate("userFollowed", ["_id", "username", "email"]);
 }
