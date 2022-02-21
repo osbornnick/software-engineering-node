@@ -2,7 +2,12 @@
 node_modules
 <<<<<<< HEAD
 build
+<<<<<<< HEAD
 =======
 build
 out
 >>>>>>> f657fce2d1173d7ca60b64b7d4b95cd950a97885
+=======
+data
+out
+>>>>>>> aaf52270036fe5e6fc05f9de70b05b4797961be1
