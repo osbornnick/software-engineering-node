@@ -23,19 +23,19 @@ export default class FollowController implements FollowControllerI {
                 FollowController.followController.userUnfollowsUser
             );
             app.get(
-                "/users/:uid/followed",
+                "/api/users/:uid/followed",
                 FollowController.followController.usersFollowed
             );
             app.get(
-                "/users/:uid/following",
+                "/api/users/:uid/following",
                 FollowController.followController.usersFollowing
             );
             app.delete(
-                "/users/:uid/followed",
+                "/api/users/:uid/followed",
                 FollowController.followController.unfollowAll
             );
             app.get(
-                "/users/:uid/follow/:oid",
+                "/api/users/:uid/follow/:oid",
                 FollowController.followController.followsBack
             );
         }
