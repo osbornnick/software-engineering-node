@@ -6,15 +6,16 @@
  *     <li>tuits</li>
  *     <li>likes</li>
  * </ul>
- * 
+ *
  * Connects to a remote MongoDB instance hosted on the Atlas cloud database
  * service
  */
-import express, {Request, Response} from 'express';
+import express, { Request, Response } from "express";
 import UserController from "./controllers/UserController";
 import TuitController from "./controllers/TuitController";
 import LikeController from "./controllers/LikeController";
 import mongoose from "mongoose";
+import FollowController from "./controllers/FollowController";
 
 // build the connection string
 const PROTOCOL = "mongodb+srv";
@@ -34,16 +35,13 @@ mongoose.connect(connectionString);
 const app = express();
 app.use(express.json());
 
-app.get('/', (req: Request, res: Response) =>
-    res.send('Welcome!'));
-
-TuitController.getInstance(app);
-UserController.getInstance(app);
+app.get("/", (req: Request, res: Response) => res.send("Welcome!"));
 
 // create RESTful Web service API
 const userController = UserController.getInstance(app);
 const tuitController = TuitController.getInstance(app);
 const likesController = LikeController.getInstance(app);
+const followController = FollowController.getInstance(app);
 
 /**
  * Start a server listening at port 4000 locally
