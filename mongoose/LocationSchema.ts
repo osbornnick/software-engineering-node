@@ -1,3 +1,7 @@
+/**
+ * @file Implements mongoose schema representing Location data type
+ */
+
 import mongoose from "mongoose";
 const LocationSchema = new mongoose.Schema(
     {

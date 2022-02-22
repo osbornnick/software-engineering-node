@@ -1,3 +1,7 @@
+/**
+ * @file Implements mongoose schema representing Message data type
+ */
+
 import mongoose, { Schema } from "mongoose";
 import Message from "../../models/messages/Message";
 

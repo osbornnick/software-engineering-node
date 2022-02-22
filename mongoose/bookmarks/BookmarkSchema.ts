@@ -1,3 +1,7 @@
+/**
+ * @file Implements mongoose schema representing Bookmark data type
+ */
+
 import mongoose, { Schema } from "mongoose";
 import Bookmark from "../../models/bookmarks/Bookmark";
 

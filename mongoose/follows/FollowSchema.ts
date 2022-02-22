@@ -1,3 +1,7 @@
+/**
+ * @file Implements mongoose schema representing Follow data type
+ */
+
 import mongoose, { Schema } from "mongoose";
 import Follow from "../../models/follows/Follow";
 

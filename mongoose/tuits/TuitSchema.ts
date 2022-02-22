@@ -1,3 +1,7 @@
+/**
+ * @file Implements mongoose schema representing Tuit data type
+ */
+
 import mongoose, { Schema } from "mongoose";
 import Tuit from "../../models/tuits/Tuit";
 const TuitSchema = new mongoose.Schema<Tuit>(
