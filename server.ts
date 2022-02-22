@@ -5,6 +5,9 @@
  *     <li>users</li>
  *     <li>tuits</li>
  *     <li>likes</li>
+ *     <li>follows</li>
+ *     <li>bookmarks</li>
+ *     <li>messages</li>
  * </ul>
  *
  * Connects to a remote MongoDB instance hosted on the Atlas cloud database
@@ -30,9 +33,6 @@ const connectionString = `${PROTOCOL}://${DB_USERNAME}:${DB_PASSWORD}@${HOST}/${
 // connect to the database
 mongoose.connect(connectionString);
 
-// mongoose.connect(
-//     "mongodb+srv://admin:tKSu4A4ScgtEuCpF@cluster0.hejjh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
-// );
 
 const app = express();
 app.use(express.json());
