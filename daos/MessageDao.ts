@@ -15,7 +15,7 @@ export default class MessageDao implements MessageDaoI {
     private constructor() {}
 
     send = async (from: string, to: string, message: Message) =>
-        MessageModel.create({ ...message });
+        MessageModel.create({ ...message, from, to });
     findSentMessages = async (uid: string) =>
         MessageModel.find({ from: uid }).populate("to", "username").exec();
     findReceivedMessages = async (uid: string) =>
