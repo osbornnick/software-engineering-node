@@ -5,7 +5,7 @@
 import { Express, Request, Response } from "express";
 
 import FollowDao from "../daos/FollowDao";
-import FollowControllerI from "../interfaces/FollowController";
+import FollowControllerI from "../interfaces/FollowControllerI";
 
 export default class FollowController implements FollowControllerI {
     private static followDao: FollowDao = FollowDao.getInstance();
