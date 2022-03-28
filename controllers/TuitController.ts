@@ -127,7 +127,6 @@ export default class TuitController implements TuitControllerI {
             res.sendStatus(404);
             return;
         }
-        console.log(userId);
 
         TuitController.tuitDao
             .createTuitByUser(userId, req.body)
