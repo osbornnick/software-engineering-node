@@ -36,14 +36,14 @@ const connectionString = `${PROTOCOL}://${DB_USERNAME}:${DB_PASSWORD}@${HOST}/${
 mongoose.connect(connectionString);
 
 const app = express();
-const whitelist = ["http://localhost:3000", "https://cs5400a4.herokuapp.com/"];
+const whitelist = [
+    "http://localhost:3000",
+    "https://regal-travesseiro-d2c8d5.netlify.app",
+];
 app.use(
     cors({
         credentials: true,
-        origin: (origin: string, callback: Function) => {
-            if (whitelist.indexOf(origin) !== -1) callback(null, true);
-            else callback(new Error("Not allowed by CORS"));
-        },
+        origin: whitelist,
     })
 );
 
