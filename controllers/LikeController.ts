@@ -78,10 +78,7 @@ export default class LikeController implements LikeControllerI {
         // @ts-ignore
         const profile = req.session["profile"];
         const userId = uid === "me" && profile ? profile._id : uid;
-        if (userId === "me") {
-            res.sendStatus(404);
-            return;
-        }
+
         LikeController.likeDao.findAllTuitsLikedByUser(userId).then((likes) => {
             const likesNonNullTuits = likes.filter((like) => like.tuit);
             const tuitsFromLikes = likesNonNullTuits.map((like) => like.tuit);
