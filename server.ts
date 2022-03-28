@@ -5,6 +5,7 @@
  *     <li>users</li>
  *     <li>tuits</li>
  *     <li>likes</li>
+ *     <li>dislikes</li>
  * </ul>
  *
  * Connects to a remote MongoDB instance hosted on the Atlas cloud database
@@ -17,6 +18,7 @@ import TuitController from "./controllers/TuitController";
 import LikeController from "./controllers/LikeController";
 import SessionController from "./controllers/SessionController";
 import AuthenticationController from "./controllers/AuthenticationController";
+import DislikeController from "./controllers/DislikeController";
 import mongoose from "mongoose";
 import GroupController from "./controllers/GroupController";
 import "dotenv/config";
@@ -63,12 +65,11 @@ app.get("/", (req: Request, res: Response) => res.send("Welcome!"));
 
 TuitController.getInstance(app);
 UserController.getInstance(app);
-
+DislikeController.getInstance(app);
 // create RESTful Web service API
-const courseController = new CourseController(app);
-const userController = UserController.getInstance(app);
-const tuitController = TuitController.getInstance(app);
-const likesController = LikeController.getInstance(app);
+UserController.getInstance(app);
+TuitController.getInstance(app);
+LikeController.getInstance(app);
 SessionController(app);
 AuthenticationController(app);
 GroupController(app);

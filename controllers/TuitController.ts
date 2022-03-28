@@ -3,7 +3,7 @@
  */
 import TuitDao from "../daos/TuitDao";
 import Tuit from "../models/tuits/Tuit";
-import {Express, Request, Response} from "express";
+import { Express, Request, Response } from "express";
 import TuitControllerI from "../interfaces/TuitControllerI";
 
 /**
@@ -33,17 +33,32 @@ export default class TuitController implements TuitControllerI {
      * @return TuitController
      */
     public static getInstance = (app: Express): TuitController => {
-        if(TuitController.tuitController === null) {
+        if (TuitController.tuitController === null) {
             TuitController.tuitController = new TuitController();
             app.get("/api/tuits", TuitController.tuitController.findAllTuits);
-            app.get("/api/users/:uid/tuits", TuitController.tuitController.findAllTuitsByUser);
-            app.get("/api/tuits/:uid", TuitController.tuitController.findTuitById);
-            app.post("/api/users/:uid/tuits", TuitController.tuitController.createTuitByUser);
-            app.put("/api/tuits/:uid", TuitController.tuitController.updateTuit);
-            app.delete("/api/tuits/:uid", TuitController.tuitController.deleteTuit);
+            app.get(
+                "/api/users/:uid/tuits",
+                TuitController.tuitController.findAllTuitsByUser
+            );
+            app.get(
+                "/api/tuits/:uid",
+                TuitController.tuitController.findTuitById
+            );
+            app.post(
+                "/api/users/:uid/tuits",
+                TuitController.tuitController.createTuitByUser
+            );
+            app.put(
+                "/api/tuits/:uid",
+                TuitController.tuitController.updateTuit
+            );
+            app.delete(
+                "/api/tuits/:uid",
+                TuitController.tuitController.deleteTuit
+            );
         }
         return TuitController.tuitController;
-    }
+    };
 
     private constructor() {}
 
@@ -54,9 +69,10 @@ export default class TuitController implements TuitControllerI {
      * body formatted as JSON arrays containing the tuit objects
      */
     findAllTuits = (req: Request, res: Response) =>
-        TuitController.tuitDao.findAllTuits()
+        TuitController.tuitDao
+            .findAllTuits()
             .then((tuits: Tuit[]) => res.json(tuits));
-    
+
     /**
      * @param {Request} req Represents request from client, including path
      * parameter tid identifying the primary key of the tuit to be retrieved
@@ -64,7 +80,8 @@ export default class TuitController implements TuitControllerI {
      * body formatted as JSON containing the tuit that matches the user ID
      */
     findTuitById = (req: Request, res: Response) =>
-        TuitController.tuitDao.findTuitById(req.params.uid)
+        TuitController.tuitDao
+            .findTuitById(req.params.uid)
             .then((tuit: Tuit) => res.json(tuit));
 
     /**
@@ -75,13 +92,21 @@ export default class TuitController implements TuitControllerI {
      * body formatted as JSON arrays containing the tuit objects
      */
     findAllTuitsByUser = (req: Request, res: Response) => {
-        // @ts-ignore
-        let userId = req.params.uid === "me" && req.session['profile'] ?
+        let userId =
             // @ts-ignore
-            req.session['profile']._id : req.params.uid;
-        TuitController.tuitDao.findAllTuitsByUser(userId)
+            req.params.uid === "me" && req.session["profile"]
+                ? // @ts-ignore
+                  req.session["profile"]._id
+                : req.params.uid;
+
+        if (userId === "me") {
+            res.sendStatus(404);
+            return;
+        }
+        TuitController.tuitDao
+            .findAllTuitsByUser(userId)
             .then((tuits: Tuit[]) => res.json(tuits));
-    }
+    };
 
     /**
      * @param {Request} req Represents request from client, including body
@@ -92,16 +117,22 @@ export default class TuitController implements TuitControllerI {
      * database
      */
     createTuitByUser = (req: Request, res: Response) => {
-        // @ts-ignore
-        let userId = req.params.uid === "me" && req.session['profile'] ?
+        let userId =
             // @ts-ignore
-            req.session['profile']._id : req.params.uid;
-
+            req.params.uid === "me" && req.session["profile"]
+                ? // @ts-ignore
+                  req.session["profile"]._id
+                : req.params.uid;
+        if (userId === "me") {
+            res.sendStatus(404);
+            return;
+        }
         console.log(userId);
-        
-        TuitController.tuitDao.createTuitByUser(userId, req.body)
+
+        TuitController.tuitDao
+            .createTuitByUser(userId, req.body)
             .then((tuit: Tuit) => res.json(tuit));
-    }
+    };
 
     /**
      * @param {Request} req Represents request from client, including path
@@ -110,7 +141,8 @@ export default class TuitController implements TuitControllerI {
      * on whether updating a tuit was successful or not
      */
     updateTuit = (req: Request, res: Response) =>
-        TuitController.tuitDao.updateTuit(req.params.uid, req.body)
+        TuitController.tuitDao
+            .updateTuit(req.params.uid, req.body)
             .then((status) => res.send(status));
 
     /**
@@ -120,6 +152,7 @@ export default class TuitController implements TuitControllerI {
      * on whether deleting a user was successful or not
      */
     deleteTuit = (req: Request, res: Response) =>
-        TuitController.tuitDao.deleteTuit(req.params.uid)
+        TuitController.tuitDao
+            .deleteTuit(req.params.uid)
             .then((status) => res.send(status));
-};
+}
