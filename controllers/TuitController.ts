@@ -119,7 +119,11 @@ export default class TuitController implements TuitControllerI {
     createTuitByUser = (req: Request, res: Response) => {
         let userId =
             // @ts-ignore
-            req.params.uid === "me" && req.session["profile"]
+            req.params.uid === "me" &&
+            // @ts-ignore
+            req.session["profile"] &&
+            // @ts-ignore
+            req.session["profile"]._id
                 ? // @ts-ignore
                   req.session["profile"]._id
                 : req.params.uid;

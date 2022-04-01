@@ -76,9 +76,10 @@ export default class DislikeController implements DislikeControllerI {
         const uid = req.params.uid;
         // @ts-ignore
         const profile = req.session["profile"];
-        const userId = uid === "me" && profile ? profile._id : uid;
+        const userId =
+            uid === "me" && profile && profile._id ? profile._id : uid;
         if (userId === "me") {
-            res.sendStatus(404);
+            res.sendStatus(503);
             return;
         }
         DislikeController.dislikeDao
@@ -109,9 +110,10 @@ export default class DislikeController implements DislikeControllerI {
         const tid = req.params.tid;
         // @ts-ignore
         const profile = req.session["profile"];
-        const userId = uid === "me" && profile ? profile._id : uid;
+        const userId =
+            uid === "me" && profile && profile._id ? profile._id : uid;
         if (userId === "me") {
-            res.sendStatus(404);
+            res.sendStatus(503);
             return;
         }
         try {
