@@ -36,14 +36,15 @@ const connectionString = `${PROTOCOL}://${DB_USERNAME}:${DB_PASSWORD}@${HOST}/${
 mongoose.connect(connectionString);
 
 const app = express();
-const whitelist = [
-    "http://localhost:3000",
-    "https://regal-travesseiro-d2c8d5.netlify.app",
-];
+
+let origin = "http://localhost:3000";
+if (process.env.ENVIRONMENT === "PRODUCTION" && process.env.CORS_ORIGIN)
+    origin = process.env.CORS_ORIGIN;
+
 app.use(
     cors({
         credentials: true,
-        origin: whitelist,
+        origin,
     })
 );
 
@@ -53,7 +54,8 @@ let sess = {
     saveUninitialized: true,
     resave: true,
     cookie: {
-        secure: false,
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+        secure: process.env.NODE_ENV === "production",
     },
 };
 
